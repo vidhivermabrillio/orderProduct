@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table(name = "order_tb")
 public class Order{
@@ -18,8 +20,8 @@ public class Order{
 	@Column(name="ordered_at")
 	private Date orderedAt;
 		
-//	@OneToOne(mappedBy = "order")
-//    private User user;
+	@OneToOne(mappedBy = "order")
+    private User user;
 	
 	@OneToMany(mappedBy = "order")
     private List<Product> products = new ArrayList<>();
@@ -40,13 +42,13 @@ public class Order{
 		this.orderedAt = orderedAt;
 	}
 
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public List<Product> getProducts() {
 		return products;
