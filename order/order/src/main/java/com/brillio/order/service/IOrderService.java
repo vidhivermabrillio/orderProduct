@@ -7,6 +7,6 @@ import com.brillio.order.model.Order;
 public interface IOrderService {
 	
 	public Order saveOrder(Order order);
-	public List<Order> getAllOrder();
+	public List<Order> getAllOrder(int userId);
 
 }

@@ -37,8 +37,8 @@ public class OrderServiceImpl implements IOrderService{
 		return orderRepo.save(order);
 	}
 
-	public List<Order> getAllOrder() {
-		return orderRepo.findAll();
+	public List<Order> getAllOrder(int userId) {
+		return orderRepo.findAllByUserID(userId);
 	}
 
 }

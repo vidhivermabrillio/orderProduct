@@ -34,11 +34,16 @@ public class UserController {
 		User userObj = validateUser(user.getUserName(), user.getPassword());
 		map.clear();
 		map.put("isAdmin", ""+ userObj.isAdmin());
+		map.put("userId", ""+ userObj.getUserId());
+		map.put("createdAt", ""+userObj.getCreatedAt());
+		map.put("userName", ""+ userObj.getUserName());
+		map.put("isSuccess", ""+ true);
 		map.put("message", "user successfully logged in");
 		}
 		catch(Exception e) {
 			String exceptionMessage = e.getMessage();
 			map.clear();
+			map.put("isSuccess", ""+ false);
 			map.put("message", exceptionMessage);
 			return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
 		}

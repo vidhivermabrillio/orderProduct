@@ -1,4 +1,4 @@
-package com.brillio.order.model;
+package com.verizon.product.model;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,9 +19,6 @@ public class Order{
 	
 	@Column(name="ORDERED_AT")
 	private Date orderedAt;
-	
-	@Column(name="USER_ID")
-	private int userId;
 		
 	@OneToOne(mappedBy = "order",cascade = {CascadeType.ALL})
     private User user;
@@ -43,14 +40,6 @@ public class Order{
 
 	public void setOrderedAt(Date orderedAt) {
 		this.orderedAt = orderedAt;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
 	}
 
 	public User getUser() {

@@ -2,20 +2,25 @@ package com.verizon.product.model;
 
 import javax.persistence.*;
 
+
 @Entity
-@Table(name = "product")
+@Table(name = "PRODUCT_TB")
 public class Product {
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	private int id;
-	@Column(name = "product_name")
+	@Column(name = "PRODUCT_NAME")
 	private String productName;
-	@Column(name = "product_type")
+	@Column(name = "PRODUCT_TYPE")
 	private String productType;
-	@Column(name = "product_cost")
+	@Column(name = "PRODUCT_COST")
 	private int productCost;
+
+	@ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "ORDER_ID")
+    private Order order;
 
 	public int getId() {
 		return id;
@@ -48,5 +53,16 @@ public class Product {
 	public void setProductCost(int productCost) {
 		this.productCost = productCost;
 	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+	
+	
+	
 
 }
