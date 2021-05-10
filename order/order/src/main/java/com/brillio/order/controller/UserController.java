@@ -33,7 +33,7 @@ public class UserController {
 		try {
 		User userObj = validateUser(user.getUserName(), user.getPassword());
 		map.clear();
-		map.put("isAdmin", ""+ userObj.isAdmin());
+		map.put("isAdmin", ""+ userObj.getIsAdmin());
 		map.put("message", "user successfully logged in");
 		}
 		catch(Exception e) {
