@@ -1,6 +1,7 @@
 package com.brillio.order.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,13 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.brillio.order.model.Order;
+import com.brillio.order.model.User;
 import com.brillio.order.repo.IOrderRepo;
+import com.brillio.order.repo.UserRepository;
 
 @Service
 public class OrderServiceImpl implements IOrderService{
 	
 	@Autowired
 	public IOrderRepo orderRepo;
+	
+	@Autowired
+	public UserRepository userRepo;
 
 	@Override
 	public Order saveOrder(Order order) {
@@ -33,7 +39,8 @@ public class OrderServiceImpl implements IOrderService{
 //				System.out.println("*****");
 //				
 //				
-				
+		Optional<User> user = userRepo.findById(order.getUserId());
+		order.setUser(user.get());
 		return orderRepo.save(order);
 	}
 
