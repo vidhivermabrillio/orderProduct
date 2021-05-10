@@ -9,21 +9,21 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
 
 @Entity
-@Table(name = "order_tb")
+@Table(name = "ORDER_TB")
 public class Order{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "order_id")
+	@Column(name = "ORDER_ID")
 	private int orderId;
 	
-	@Column(name="ordered_at")
+	@Column(name="ORDERED_AT")
 	private Date orderedAt;
 		
-	@OneToOne(mappedBy = "order")
+	@OneToOne(mappedBy = "order",cascade = {CascadeType.ALL})
     private User user;
 	
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order",cascade = {CascadeType.ALL})
     private List<Product> products = new ArrayList<>();
 
 	public int getOrderId() {

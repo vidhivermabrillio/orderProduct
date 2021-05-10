@@ -4,22 +4,22 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "product_tb")
+@Table(name = "PRODUCT_TB")
 public class Product {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+	@Column(name = "ID")
 	private int id;
-	@Column(name = "product_name")
+	@Column(name = "PRODUCT_NAME")
 	private String productName;
-	@Column(name = "product_type")
+	@Column(name = "PRODUCT_TYPE")
 	private String productType;
-	@Column(name = "product_cost")
+	@Column(name = "PRODUCT_COST")
 	private int productCost;
 
-	@ManyToOne
-    @JoinColumn(name = "order_id")
+	@ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "ORDER_ID")
     private Order order;
 
 	public int getId() {

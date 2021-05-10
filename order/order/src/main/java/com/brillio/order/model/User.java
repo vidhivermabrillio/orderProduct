@@ -5,28 +5,28 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_tb")
+@Table(name = "USER_TB")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "user_id")
+	@Column(name = "USER_ID")
 	private int userId;
 	
-	@Column(name="user_name")
+	@Column(name="USER_NAME")
 	private String userName;
 	
-	@Column(name="password")
+	@Column(name="PASSWORD")
 	private String password;
 	
-	@Column(name="created_at")
+	@Column(name="CREATED_AT")
 	private Date createdAt;
 	
-	@Column(name ="is_admin")
+	@Column(name ="IS_ADMIN")
 	private boolean isAdmin;
 	
 	 @OneToOne(cascade = CascadeType.ALL)
-	 @JoinColumn(name = "order_id")
+	 @JoinColumn(name = "ORDER_ID")
 	 private Order order;
 
 
