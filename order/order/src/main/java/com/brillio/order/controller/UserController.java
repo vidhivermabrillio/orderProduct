@@ -1,7 +1,9 @@
 package com.brillio.order.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 
@@ -59,6 +61,42 @@ public class UserController {
 			throw new ServletException("Invalid credentials.");
 		}
 		return user;
+	}
+	
+	@PostMapping("/createUser")
+	public ResponseEntity<?> createUser(@RequestBody User user) throws ServletException {
+		
+		try {
+			if(validateCreateUser(user.getUserName(), user.getPassword())) {
+				user.setCreatedAt(new Date());
+				user.setUserId(new Random().nextInt());
+				User createdUser = userService.createUser(user);
+				if(createdUser != null) {
+					map.clear();
+					map.put("isSuccess", ""+ true);
+					map.put("message", "user successfully logged in");					
+				}			
+			}
+		}
+		catch(Exception e) {
+			String exceptionMessage = e.getMessage();
+			map.clear();
+			map.put("isSuccess", ""+ false);
+			map.put("message", exceptionMessage);
+			return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+
+	private boolean validateCreateUser(String userName, String pass) throws ServletException {
+		if (userName == null || pass == null) {
+			throw new ServletException("Please fill in username and password.");
+		}
+		User user = userService.findByUserName(userName);
+		if (user != null) {
+			throw new ServletException("User already exists.");
+		}
+		return true;
 	}
 
 }
