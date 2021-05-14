@@ -1,15 +1,23 @@
 package com.brillio.order.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 
 import org.hibernate.annotations.Cascade;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.mysql.cj.jdbc.Clob;
+
 @Entity
 @Table(name = "ORDER_TB")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="orderProducts")
 public class Order{
 	
 	@Id
@@ -18,17 +26,36 @@ public class Order{
 	private int orderId;
 	
 	@Column(name="ORDERED_AT")
-	private Date orderedAt;
+	private LocalDate orderedAt;
 	
 	@Column(name="USER_ID")
 	private int userId;
-		
-	@OneToOne(mappedBy = "order",cascade = {CascadeType.ALL})
-    private User user;
 	
-	@OneToMany(mappedBy = "order",cascade = {CascadeType.ALL})
-    private List<Product> products = new ArrayList<>();
+//	 @OneToMany(mappedBy="orders")
+//	 private List<Product> products;
+	
+	 @JsonManagedReference
+	    @OneToMany(mappedBy = "pk.order")
+	    @Valid
+	    private List<OrderProduct> orderProducts = new ArrayList<>();
+	 
+	 
+	 @Transient
+	    public Double getTotalOrderPrice() {
+	        double sum = 0D;
+	        List<OrderProduct> orderProducts = getOrderProducts();
+	        for (OrderProduct op : orderProducts) {
+	            sum += op.getTotalPrice();
+	        }
+	        return sum;
+	    }
 
+	    @Transient
+	    public int getNumberOfProducts() {
+	        return this.orderProducts.size();
+	    }
+	 
+	 
 	public int getOrderId() {
 		return orderId;
 	}
@@ -37,12 +64,12 @@ public class Order{
 		this.orderId = orderId;
 	}
 
-	public Date getOrderedAt() {
+	public LocalDate getOrderedAt() {
 		return orderedAt;
 	}
 
-	public void setOrderedAt(Date orderedAt) {
-		this.orderedAt = orderedAt;
+	public void setOrderedAt(LocalDate localDate) {
+		this.orderedAt = localDate;
 	}
 
 	public int getUserId() {
@@ -53,23 +80,23 @@ public class Order{
 		this.userId = userId;
 	}
 
-	public User getUser() {
-		return user;
+	public List<OrderProduct> getOrderProducts() {
+		return orderProducts;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setOrderProducts(List<OrderProduct> orderProducts) {
+		this.orderProducts = orderProducts;
 	}
 
-	public List<Product> getProducts() {
-		return products;
-	}
+//	public List<Product> getProducts() {
+//		return products;
+//	}
+//
+//	public void setProducts(List<Product> products) {
+//		this.products = products;
+//	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
 	
-	
-	
+
 
 }

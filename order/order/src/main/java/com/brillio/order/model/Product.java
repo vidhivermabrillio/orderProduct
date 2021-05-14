@@ -18,10 +18,11 @@ public class Product {
 	@Column(name = "PRODUCT_COST")
 	private int productCost;
 
-	@ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "ORDER_ID")
-    private Order order;
-
+//	@ManyToOne
+//    @JoinColumn(name="ORDER_ID")
+//    private Order orders;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -54,15 +55,12 @@ public class Product {
 		this.productCost = productCost;
 	}
 
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-	
-	
-	
+//	public Order getOrders() {
+//		return orders;
+//	}
+//
+//	public void setOrders(Order orders) {
+//		this.orders = orders;
+//	}
 
 }

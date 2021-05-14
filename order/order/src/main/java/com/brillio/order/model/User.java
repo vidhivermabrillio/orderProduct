@@ -25,12 +25,6 @@ public class User {
 	@Column(name ="IS_ADMIN")
 	private boolean isAdmin;
 	
-	 @OneToOne(cascade = CascadeType.ALL)
-	 @JoinColumn(name = "ORDER_ID")
-	 private Order order;
-
-
-
 	public int getUserId() {
 		return userId;
 	}
@@ -70,15 +64,6 @@ public class User {
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-	
 	
 
 }
