@@ -2,67 +2,84 @@ package com.verizon.product.model;
 
 import javax.persistence.*;
 
-
 @Entity
-@Table(name = "PRODUCT_TB")
+@Table(name = "product")
 public class Product {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private int id;
-	@Column(name = "PRODUCT_NAME")
+	@Column(name = "product_name")
 	private String productName;
-	@Column(name = "PRODUCT_TYPE")
+	@Column(name = "product_type")
 	private String productType;
-	@Column(name = "PRODUCT_COST")
+	@Column(name = "product_cost")
 	private int productCost;
+	
+	
+	
+	public Product() {
+		super();
+	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "ORDER_ID")
-    private Order order;
+
+	public Product(int id, String productName, String productType, int productCost, int order_id) {
+		super();
+		this.id = id;
+		this.productName = productName;
+		this.productType = productType;
+		this.productCost = productCost;
+	}
+
 
 	public int getId() {
 		return id;
 	}
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 	public String getProductName() {
 		return productName;
 	}
 
+
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
 
 	public String getProductType() {
 		return productType;
 	}
 
+
 	public void setProductType(String productType) {
 		this.productType = productType;
 	}
+
 
 	public int getProductCost() {
 		return productCost;
 	}
 
+
 	public void setProductCost(int productCost) {
 		this.productCost = productCost;
 	}
 
-	public Order getOrder() {
-		return order;
+
+
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", productName=" + productName + ", productType=" + productType + ", productCost="
+				+ productCost +  "]";
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
-	}
 	
-	
-	
-
 }

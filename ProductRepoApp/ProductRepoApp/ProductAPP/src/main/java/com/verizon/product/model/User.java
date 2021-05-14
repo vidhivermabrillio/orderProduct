@@ -1,42 +1,30 @@
 package com.verizon.product.model;
 
-import java.util.Date;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "USER_TB")
+@Table(name = "User_Tab")
 public class User {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "USER_ID")
-	private int userId;
-	
-	@Column(name="USER_NAME")
+	@Column(name = "id")
+	private int id;
+	@Column(name = "user_name")
+
 	private String userName;
-	
-	@Column(name="PASSWORD")
+	@Column(name = "password")
+
 	private String password;
-	
-	@Column(name="CREATED_AT")
-	private Date createdAt;
-	
-	@Column(name ="IS_ADMIN")
-	private boolean isAdmin;
-	
-	 @OneToOne(cascade = CascadeType.ALL)
-	 @JoinColumn(name = "ORDER_ID")
-	 private Order order;
+	@Column(name = "role")
+	private String role;
 
-
-
-	public int getUserId() {
-		return userId;
+	public int getId() {
+		return id;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getUserName() {
@@ -47,38 +35,11 @@ public class User {
 		this.userName = userName;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getRole() {
+		return role;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setRole(String role) {
+		this.role = role;
 	}
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public boolean isAdmin() {
-		return isAdmin;
-	}
-
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
-
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-	
-	
-
 }
