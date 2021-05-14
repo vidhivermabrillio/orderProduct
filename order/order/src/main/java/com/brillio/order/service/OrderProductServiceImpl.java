@@ -1,5 +1,6 @@
 package com.brillio.order.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.*;
@@ -33,15 +34,16 @@ public class OrderProductServiceImpl implements OrderProductService {
 	public @NotNull OrderForm getproductsByOrderId(int orderId) {
 		List<OrderProduct> opList = this.orderProductRepository.getproductsByOrderId(orderId);
 		OrderForm form = new OrderForm();
-		List<OrderProductDto> orderProductList = null;
+		List<OrderProductDto> orderProductList = new ArrayList<OrderProductDto>();
 		for(OrderProduct op:opList) {
-			OrderProductDto orderProductDto = null;
+			OrderProductDto orderProductDto = new OrderProductDto();
 			orderProductDto.setProduct(op.getPk().getProduct());
 			orderProductDto.setQuantity(op.getQuantity());
 			orderProductList.add(orderProductDto);
 			
 		}
 		form.setProductOrders(orderProductList);
+		form.setUserId(opList.get(0).getPk().getOrder().getUserId());
 		return form;
 	}
 }

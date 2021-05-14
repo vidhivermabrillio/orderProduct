@@ -15,11 +15,11 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class OrderProductPK implements Serializable {
 
     @JsonBackReference
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "Product_ID")
     private Product product;
 
