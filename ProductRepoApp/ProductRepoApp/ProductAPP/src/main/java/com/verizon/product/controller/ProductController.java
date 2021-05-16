@@ -81,9 +81,9 @@ public class ProductController {
 		ResponseEntity<String> resp = null;
 		try {
 			productService.deleteProductById(prodId);
-			resp = new ResponseEntity<String>("Poduct '" + prodId + "' is successfully saved", HttpStatus.CREATED);
+			resp = new ResponseEntity<String>("Poduct '" + prodId + "' is successfully deleted ", HttpStatus.CREATED);
 		} catch (Exception e) {
-			resp = new ResponseEntity<String>("Product '" + prodId +"'  unable to delete !!", HttpStatus.INTERNAL_SERVER_ERROR);
+			resp = new ResponseEntity<String>("Product '" + prodId +"' unable to delete !!", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return resp;
 		
