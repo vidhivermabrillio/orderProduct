@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,6 +75,20 @@ public class ProductController {
 		}
 	}
 	
+	
+	@DeleteMapping("/product/{prodId}")
+    public ResponseEntity<String> deleteProductById(@PathVariable int prodId){
+		ResponseEntity<String> resp = null;
+		try {
+			productService.deleteProductById(prodId);
+			resp = new ResponseEntity<String>("Poduct '" + prodId + "' is successfully saved", HttpStatus.CREATED);
+		} catch (Exception e) {
+			resp = new ResponseEntity<String>("Product '" + prodId +"'  unable to delete !!", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return resp;
+		
+    }
+
 	/*
 	 * -------------Excelsheet code----------
 	 */	
@@ -109,6 +124,7 @@ public class ProductController {
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
 				.contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
 	}
+	
 
 }
 

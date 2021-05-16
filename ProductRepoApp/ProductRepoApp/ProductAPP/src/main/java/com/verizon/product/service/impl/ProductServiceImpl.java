@@ -64,6 +64,14 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 	}
+	
+	//---------Delete-------------
+	@Override
+	public void deleteProductById(int prodId) {
+		productRepository.deleteById(prodId);
+
+	}
+
 	@Override
 	public void save(MultipartFile file) {
 	    try {

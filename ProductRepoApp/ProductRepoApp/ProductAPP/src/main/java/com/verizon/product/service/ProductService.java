@@ -14,6 +14,8 @@ public interface ProductService {
 	List<Product> getAllProduct();
 
 	List<Product> getSearchedProductByName(String productName);
+	
+	void deleteProductById(int prodId);
 
 	Boolean checkUserExist(String userName);
 
