@@ -25,11 +25,11 @@
 
 	<groupId>com.brillio</groupId>
 
-	<artifactId>product</artifactId>
+	<artifactId>user</artifactId>
 
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>product</name>
+	<name>user</name>
 
 	<description>Demo project for Spring Boot</description>
 
