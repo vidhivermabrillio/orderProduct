@@ -24,10 +24,15 @@ import com.brillio.order.service.OrderProductService;
 import com.brillio.order.service.OrderServiceImpl;
 import com.brillio.order.service.ProductService;
 import com.brillio.order.service.ProductServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/orders")
+@Api(value = "Order Controller will save and retrieve orders ")
 public class OrderController {
 	
 	@Autowired
@@ -36,22 +41,20 @@ public class OrderController {
 	@Autowired
 	 OrderProductService orderProductService;
 	
-	
 	@Autowired
 	ProductService productService;
 	
-//	@PostMapping(value = "/orderSave")
-//	public ResponseEntity<Order> saveFavorite(@RequestBody Order order) {
-//		System.out.println(order);
-//		return new ResponseEntity<Order>(orderService.saveOrder(order), HttpStatus.CREATED);
-//	}
-	
+	@ApiOperation(value = "retrieve user orders", notes="Get all orders by user id", response = List.class)
+	@ApiResponses(value = {	
+	@ApiResponse(code = 200, message = "Orders Successfully retrieved"),
+	@ApiResponse(code = 401, message = "You are not authorized to view the resource")})	
 	@GetMapping(value = "/orders/{userId}")
-	public ResponseEntity<List<Order>> getAllFavorite(@PathVariable("userId") int userId) {
+	public ResponseEntity<List<Order>> getAllOrdersByUserId(@PathVariable("userId") int userId) {
 		return new ResponseEntity<List<Order>>(orderService.getAllOrder(userId), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/orderSave")
+    @ApiOperation(value = "Order creation", notes="Create new Order based on product", response = Order.class)
 	public ResponseEntity<Order> create(@RequestBody OrderForm orderForm) {
 		
 		 List<OrderProductDto> formDtos = orderForm.getProductOrders();
@@ -71,16 +74,9 @@ public class OrderController {
 		
 		 return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
 	}
-	
-	
-//	@GetMapping(value = "/getProductsByOrderId/{orderId}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public @NotNull OrderForm getProductsByOrderId(@PathVariable("orderId") int orderId) {
-//        return this.orderProductService.getproductsByOrderId(orderId);
-//    }
-	
-	
+		
 	@GetMapping(value = "/products/{orderId}")
+    @ApiOperation(value = "retrieving order products", notes= "Get the products by order Id", response = OrderForm.class)
 	public ResponseEntity<OrderForm> getProductsByOrderId(@PathVariable("orderId") int orderId) {
 		return new ResponseEntity<OrderForm>(this.orderProductService.getproductsByOrderId(orderId), HttpStatus.OK);
 	}

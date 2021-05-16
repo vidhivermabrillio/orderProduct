@@ -19,9 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.brillio.order.model.User;
 import com.brillio.order.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @CrossOrigin("*")
+@Api(value = "User Controller will handle user login after validating user name and password")
 public class UserController {
 	
 	@Autowired
@@ -30,7 +37,10 @@ public class UserController {
 	Map<String, String> map = new HashMap<>();
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody User user) throws ServletException {
+    @ApiOperation(value = "User validation", notes= "Approves the user by user name and password")
+	@ApiResponses(value = {
+			 @ApiResponse(code = 200, message = "User login")})
+	public ResponseEntity<?> login(@ApiParam(value = "User object with username and password")@RequestBody User user) throws ServletException {
 		
 		try {
 		User userObj = validateUser(user.getUserName(), user.getPassword());
@@ -64,6 +74,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/createUser")
+    @ApiOperation(value = "User creation", notes= "This api will create new user in the system")
 	public ResponseEntity<?> createUser(@RequestBody User user) throws ServletException {
 		
 		try {

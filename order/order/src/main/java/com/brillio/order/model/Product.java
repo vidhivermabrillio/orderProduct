@@ -2,27 +2,29 @@ package com.brillio.order.model;
 
 import javax.persistence.*;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name = "PRODUCT_TB")
+@ApiModel(value = "Product Details", description = "Products list with name, type and cost")
 public class Product {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
+	@ApiModelProperty(name = "Id", value = "Unique Product Id", dataType = "int", example = "101")
 	private int id;
 	@Column(name = "PRODUCT_NAME")
+	@ApiModelProperty(name = "name", value = "Product name", dataType = "String", example = "Dell")
 	private String productName;
 	@Column(name = "PRODUCT_TYPE")
+	@ApiModelProperty(name = "type", value = "Product type", dataType = "String", example = "Laptop")
 	private String productType;
 	@Column(name = "PRODUCT_COST")
+	@ApiModelProperty(name = "cost", value = "Product cost", dataType = "int", example = "50000")
 	private int productCost;
 
-//	@ManyToOne
-//    @JoinColumn(name="ORDER_ID")
-//    private Order orders;
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -54,13 +56,5 @@ public class Product {
 	public void setProductCost(int productCost) {
 		this.productCost = productCost;
 	}
-
-//	public Order getOrders() {
-//		return orders;
-//	}
-//
-//	public void setOrders(Order orders) {
-//		this.orders = orders;
-//	}
 
 }

@@ -12,8 +12,6 @@ import com.brillio.order.model.Product;
 @Validated
 @Service
 public interface ProductService {
-	
-	//public Product getProduct(int id);
 
 	public @NotNull Iterable<Product> getAllProducts();
 	

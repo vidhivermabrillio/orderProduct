@@ -13,7 +13,6 @@ import com.brillio.order.model.OrderProductPK;
 
 public interface OrderProductRepository extends CrudRepository<OrderProduct, OrderProductPK> {
 	
-	//@Query("select op from OrderProduct op inner join op.pk orderpk inner join orderpk.order ord where ord.orderId = (?1)")
 	@Query("select op from OrderProduct op join fetch op.pk.order where op.pk.order.orderId = (?1)")
 	@NotNull List<OrderProduct> getproductsByOrderId(int orderId);
 }

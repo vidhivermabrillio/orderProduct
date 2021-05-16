@@ -53,10 +53,4 @@ public class OrderServiceImpl implements IOrderService{
         this.orderRepo.save(order);
     }
 
-//	@Override
-//	public Order create(@NotNull(message = "The order cannot be null.") @Valid Order order) {
-//		  order.setOrderedAt(LocalDate.now());
-//	      return this.orderRepo.save(order);
-//	}
-
 }

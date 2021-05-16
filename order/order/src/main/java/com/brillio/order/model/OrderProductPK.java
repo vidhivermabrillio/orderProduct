@@ -14,14 +14,14 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "order")
 public class OrderProductPK implements Serializable {
 
-    @JsonBackReference
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "ORDER_ID")
-    private Order order;
+	@JsonBackReference
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ORDER_ID")
+	private Order order;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "Product_ID")
-    private Product product;
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "Product_ID")
+	private Product product;
 
 	public Order getOrder() {
 		return order;
@@ -38,7 +38,6 @@ public class OrderProductPK implements Serializable {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-   
 
-    // hashcode() and equals() methods
+	// hashcode() and equals() methods
 }

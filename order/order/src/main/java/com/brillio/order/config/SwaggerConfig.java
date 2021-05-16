@@ -38,8 +38,8 @@ public class SwaggerConfig {
 		
 		return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.brillio.order"))
-                .paths(PathSelectors.ant("/api/*"))
+               // .apis(RequestHandlerSelectors.basePackage("com.brillio.order"))
+//                .paths(PathSelectors.ant("/api/*"))
                 .build()
                 .apiInfo(apiInfo());
 
