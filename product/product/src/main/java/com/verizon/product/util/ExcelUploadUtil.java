@@ -17,114 +17,116 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.verizon.product.model.Product;
+
 @Component
 public class ExcelUploadUtil {
-  public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-  static String[] HEADERs = { "Id", "ProductName", "ProductType", "ProductCost","OrderId"};
-  static String SHEET = "ProductDetails";
+	public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+	static String[] HEADERs = { "Id", "ProductName", "ProductType", "ProductCost", "OrderId" };
+	static String SHEET = "ProductDetails";
 
-  public static boolean hasExcelFormat(MultipartFile file) {
+	public static boolean hasExcelFormat(MultipartFile file) {
 
-    if (!TYPE.equals(file.getContentType())) {
-      return false;
-    }
+		if (!TYPE.equals(file.getContentType())) {
+			return false;
+		}
 
-    return true;
-  }
+		return true;
+	}
 
-  public static ByteArrayInputStream productsToExcel(List<Product> products) {
+	public static ByteArrayInputStream productsToExcel(List<Product> products) {
 
-    try {
-    	Workbook workbook = new XSSFWorkbook(); 
-    ByteArrayOutputStream out = new ByteArrayOutputStream(); {
-    }
-      Sheet sheet = workbook.createSheet(SHEET);
+		try {
+			Workbook workbook = new XSSFWorkbook();
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			{
+			}
+			Sheet sheet = workbook.createSheet(SHEET);
 
-      // Header
-      Row headerRow = sheet.createRow(0);
+			// Header
+			Row headerRow = sheet.createRow(0);
 
-      for (int col = 0; col < HEADERs.length; col++) {
-        Cell cell = headerRow.createCell(col);
-        cell.setCellValue(HEADERs[col]);
-      }
+			for (int col = 0; col < HEADERs.length; col++) {
+				Cell cell = headerRow.createCell(col);
+				cell.setCellValue(HEADERs[col]);
+			}
 
-      int rowIdx = 1;
-      for (Product product : products) {
-        Row row = sheet.createRow(rowIdx++);
+			int rowIdx = 1;
+			for (Product product : products) {
+				Row row = sheet.createRow(rowIdx++);
 
-        row.createCell(0).setCellValue(product.getId());
-        row.createCell(1).setCellValue(product.getProductName());
-        row.createCell(2).setCellValue(product.getProductType());
-        row.createCell(3).setCellValue(product.getProductCost());
-        
-      }
+				row.createCell(0).setCellValue(product.getId());
+				row.createCell(1).setCellValue(product.getProductName());
+				row.createCell(2).setCellValue(product.getProductType());
+				row.createCell(3).setCellValue(product.getProductCost());
 
-      workbook.write(out);
-      return new ByteArrayInputStream(out.toByteArray());
-    } catch (IOException e) {
-      throw new RuntimeException("fail to import data to Excel file: " + e.getMessage());
-    }
-  }
+			}
 
-  public static List<Product> excelToProducts(InputStream is) {
-    try {
-      Workbook workbook = new XSSFWorkbook(is);
+			workbook.write(out);
+			return new ByteArrayInputStream(out.toByteArray());
+		} catch (IOException e) {
+			throw new RuntimeException("fail to import data to Excel file: " + e.getMessage());
+		}
+	}
 
-      Sheet sheet = workbook.getSheet(SHEET);
-      Iterator<Row> rows = sheet.iterator();
+	public static List<Product> excelToProducts(InputStream is) {
+		try {
+			Workbook workbook = new XSSFWorkbook(is);
 
-      List<Product> products = new ArrayList<Product>();
+			Sheet sheet = workbook.getSheet(SHEET);
+			Iterator<Row> rows = sheet.iterator();
 
-      int rowNumber = 0;
-      while (rows.hasNext()) {
-        Row currentRow = rows.next();
+			List<Product> products = new ArrayList<Product>();
 
-        // skip header
-        if (rowNumber == 0) {
-          rowNumber++;
-          continue;
-        }
+			int rowNumber = 0;
+			while (rows.hasNext()) {
+				Row currentRow = rows.next();
 
-        Iterator<Cell> cellsInRow = currentRow.iterator();
+				// skip header
+				if (rowNumber == 0) {
+					rowNumber++;
+					continue;
+				}
 
-        Product product = new Product();
+				Iterator<Cell> cellsInRow = currentRow.iterator();
 
-        int cellIdx = 0;
-        while (cellsInRow.hasNext()) {
-          Cell currentCell = cellsInRow.next();
+				Product product = new Product();
 
-          switch (cellIdx) {
-          case 0:
-        	  product.setId( (int) currentCell.getNumericCellValue());
-            break;
+				int cellIdx = 0;
+				while (cellsInRow.hasNext()) {
+					Cell currentCell = cellsInRow.next();
 
-          case 1:
-        	  product.setProductName(currentCell.getStringCellValue());
-            break;
+					switch (cellIdx) {
+					case 0:
+						product.setId((int) currentCell.getNumericCellValue());
+						break;
 
-          case 2:
-        	  product.setProductType(currentCell.getStringCellValue());
-            break;
+					case 1:
+						product.setProductName(currentCell.getStringCellValue());
+						break;
 
-          case 3:
-        	  product.setProductCost((int)currentCell.getNumericCellValue());
-            break;
-         
-          default:
-            break;
-          }
+					case 2:
+						product.setProductType(currentCell.getStringCellValue());
+						break;
 
-          cellIdx++;
-        }
+					case 3:
+						product.setProductCost((int) currentCell.getNumericCellValue());
+						break;
 
-        products.add(product);
-      }
+					default:
+						break;
+					}
 
-      workbook.close();
+					cellIdx++;
+				}
 
-      return products;
-    } catch (IOException e) {
-      throw new RuntimeException("fail to parse Excel file: " + e.getMessage());
-    }
-  }
+				products.add(product);
+			}
+
+			workbook.close();
+
+			return products;
+		} catch (IOException e) {
+			throw new RuntimeException("fail to parse Excel file: " + e.getMessage());
+		}
+	}
 }
