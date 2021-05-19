@@ -3,7 +3,8 @@ package com.brillio.user.service;
 
 import org.springframework.stereotype.Service;
 
-import com.brillio.order.model.User;
+import com.brillio.user.model.User;
+
 
 @Service
 public interface UserService {

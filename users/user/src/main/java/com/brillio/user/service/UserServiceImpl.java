@@ -3,8 +3,9 @@ package com.brillio.user.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.brillio.order.model.User;
-import com.brillio.order.repo.UserRepository;
+import com.brillio.user.model.User;
+import com.brillio.user.repo.UserRepository;
+
 
 @Service("UserService")
 public class UserServiceImpl implements UserService{

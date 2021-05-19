@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.brillio.order.model.User;
+import com.brillio.user.model.User;
+
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
