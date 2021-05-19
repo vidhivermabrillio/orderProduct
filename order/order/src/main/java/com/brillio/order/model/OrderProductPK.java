@@ -20,7 +20,7 @@ public class OrderProductPK implements Serializable {
 	private Order order;
 
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "Product_ID")
+	@JoinColumn(name = "ID")
 	private Product product;
 
 	public Order getOrder() {
