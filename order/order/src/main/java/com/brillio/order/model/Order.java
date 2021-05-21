@@ -1,5 +1,6 @@
 package com.brillio.order.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,8 +11,11 @@ import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "ORDER_TB")
-public class Order{
+public class Order implements Serializable{
 	
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ORDER_ID")
@@ -27,7 +31,8 @@ public class Order{
     private User user;
 	
 	@OneToMany(mappedBy = "order",cascade = {CascadeType.ALL})
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products ;
+//    = new ArrayList<>();
 
 	public int getOrderId() {
 		return orderId;

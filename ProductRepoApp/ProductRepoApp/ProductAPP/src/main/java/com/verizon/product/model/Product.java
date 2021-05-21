@@ -3,11 +3,11 @@ package com.verizon.product.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "product")
+@Table(name = "product_tb")
 public class Product {
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private int id;
 	@Column(name = "product_name")

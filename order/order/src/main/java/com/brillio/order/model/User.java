@@ -1,13 +1,20 @@
 package com.brillio.order.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "USER_TB")
-public class User {
+public class User implements Serializable{
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "USER_ID")

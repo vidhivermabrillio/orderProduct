@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import com.verizon.product.service.ProductService;
 import com.verizon.product.util.ExcelUploadUtil;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/product")
 public class ProductController {
 	@Autowired
@@ -76,14 +78,15 @@ public class ProductController {
 	}
 	
 	
-	@DeleteMapping("/product/{prodId}")
-    public ResponseEntity<String> deleteProductById(@PathVariable int prodId){
+	@PostMapping("/product")
+    public ResponseEntity<String> deleteProductById(@RequestBody Product prodId){
 		ResponseEntity<String> resp = null;
+		int id=prodId.getId();
 		try {
-			productService.deleteProductById(prodId);
-			resp = new ResponseEntity<String>("Poduct '" + prodId + "' is successfully deleted ", HttpStatus.CREATED);
+			productService.deleteProductById(id);
+			resp = new ResponseEntity<String>("Poduct '" + id + "' is successfully deleted ", HttpStatus.CREATED);
 		} catch (Exception e) {
-			resp = new ResponseEntity<String>("Product '" + prodId +"' unable to delete !!", HttpStatus.INTERNAL_SERVER_ERROR);
+			resp = new ResponseEntity<String>("Product '" + id +"' unable to delete !!", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return resp;
 		
